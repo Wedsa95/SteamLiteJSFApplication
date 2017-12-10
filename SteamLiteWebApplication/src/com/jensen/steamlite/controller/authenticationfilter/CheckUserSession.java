@@ -29,7 +29,9 @@ public class CheckUserSession implements Filter{
 		Object isLoggedIn =  session.getAttribute("isLoggedIn");
 		
 		if(isLoggedIn != null && (boolean) isLoggedIn) {
-			
+			res.sendRedirect(req.getContextPath());
+		}else {
+			res.sendRedirect("/faces/store.xhtml?faces-redirect=true");
 		}
 	}
 

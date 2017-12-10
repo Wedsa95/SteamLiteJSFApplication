@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
@@ -14,17 +13,25 @@
 		<property name="use_sql_comments">true</property>
 		<property name="format_sql">true</property>
 						
+		<property name="hibernate.c3p0.min_size">5</property>
+  		<property name="hibernate.c3p0.max_size">10</property>
+  		<property name="hibernate.c3p0.timeout">200</property>
+  		<property name="hibernate.c3p0.max_statements">50</property>
+  		<property name="hibernate.c3p0.idle_test_period">3000</property>
 		
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
 		
+		
 		<mapping class="com.jensen.steamlite.model.entity.User"/>
 		<mapping class="com.jensen.steamlite.model.entity.Rating"/>
-		<mapping class="com.jensen.steamlite.model.Library"/>
-		<mapping class="com.jensen.steamlite.modelentity.Game"/>
+		<mapping class="com.jensen.steamlite.model.entity.Library"/>
+		<mapping class="com.jensen.steamlite.model.entity.Game"/>
 		<mapping class="com.jensen.steamlite.model.entity.Category"/>
-		<mapping class="com.jensen.steamlite.model.AchievStatus"/>
-		<mapping class="com.jensen.steamlite.model.Achievment"/>
+		<mapping class="com.jensen.steamlite.model.entity.AchievStatus"/>
+		<mapping class="com.jensen.steamlite.model.entity.Achievment"/>
+		
+		<mapping resource="named-queries.hbm.xml" />
 		
 	</session-factory>
 </hibernate-configuration>

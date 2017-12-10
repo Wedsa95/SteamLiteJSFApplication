@@ -11,7 +11,7 @@ public class UserDao implements GenericCRUDInterface<User> {
 
 	@Override
 	public List<User> readList(User x) {
-		DatabaseConnectionUtil.getInstance().openConnection();
+		
 		
 		
 		
@@ -20,12 +20,8 @@ public class UserDao implements GenericCRUDInterface<User> {
 
 	@Override
 	public User read(User x) {
-		Session session = DatabaseConnectionUtil.getInstance().openConnection();
+		return x;
 		
-		User user = session.get(User.class, 1);
-		
-		DatabaseConnectionUtil.getInstance().closeConnection(session);;
-		return user;
 	}
 
 	@Override
