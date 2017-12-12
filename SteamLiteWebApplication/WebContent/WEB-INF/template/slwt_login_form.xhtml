@@ -7,14 +7,17 @@
 		xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<h:form>
+	<p:growl id="messages"/>
 	<h:panelGrid columns="2">
-		<h:outputLabel value="User Name: " />
-		<p:inputText  />
+		<h:outputLabel value="User Name: " for="username" />
+		<p:inputText id="username" value="#{signInHandler.userName}" 
+			placeholder="Username" />
 		
-		<h:outputLabel value="Password" />
-		<p:password />
+		<h:outputLabel value="Password" for="password" />
+		<p:password id="password" value="#{signInHandler.password}" 
+			placeholder="Password" />
 		
-		<p:commandButton value="Login" />
+		<p:commandButton value="Login" action="#{signInHandler.sendTo}" ajax="false" />
 	</h:panelGrid>
 	</h:form>
 </h:body>

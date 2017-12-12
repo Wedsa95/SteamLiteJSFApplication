@@ -21,18 +21,19 @@ public class CheckUserSession implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		
-		HttpSession session = req.getSession();
-		
-		Object isLoggedIn =  session.getAttribute("isLoggedIn");
-		
-		if(isLoggedIn != null && (boolean) isLoggedIn) {
-			res.sendRedirect(req.getContextPath());
-		}else {
-			res.sendRedirect("/faces/store.xhtml?faces-redirect=true");
-		}
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//		
+//		HttpSession session = req.getSession();
+//		
+//		Object isLoggedIn =  session.getAttribute("isLoggedIn");
+//		
+//		if(isLoggedIn != null && (boolean) isLoggedIn) {
+//			res.sendRedirect(req.getContextPath());
+//		}else {
+//			res.sendRedirect("/faces/store.xhtml?faces-redirect=true");
+//		}
+	
 	}
 
 	@Override

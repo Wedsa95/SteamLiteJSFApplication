@@ -12,18 +12,33 @@
 		<p:menubar >
 		
 			<p:submenu label="Library"   >
-				<p:menuitem value="Sort by catigory"  ajax="false" />
-				<p:menuitem value="Sort by rating" ajax="false" />
+				<p:menuitem value="Sort by catigory"  ajax="false" url="/faces/user/library.xhtml" />
+				<p:menuitem value="Sort by rating" ajax="false" url="/faces/user/library.xhtml" />
 			</p:submenu>
 			
 			<p:submenu label="Store">
-				<p:menuitem value="Sort by catigory"  ajax="false" />
-				<p:menuitem value="Sort by rating" ajax="false" />
+				<p:menuitem value="Sort by catigory"  ajax="false"  url="/faces/store.xhtml" />
+				<p:menuitem value="Sort by rating" ajax="false"  url="/faces/store.xhtml" />
 			</p:submenu>
 			
 			<p:submenu label="Profile"  >
-				<p:menuitem value="Change details" ajax="false" />
+				<p:menuitem value="Change details" ajax="false" url="/faces/user/profile.xhtml" />
 			</p:submenu>
+		
+		<f:facet name="options">
+            <p:inputText style="margin-right:10px" placeholder="Search"/>
+	        <h:form>
+	            <ui:fragment rendered="#{!userHandler.signedIn}" >
+	            	<p:button value="Log in" outcome="/faces/login.xhtml" />
+	            </ui:fragment>
+          
+	            <ui:fragment rendered="#{userHandler.signedIn}" >
+	            	<p:commandButton value="Log out" ajax="false" action="#{signOutHandler.sendTo}" />
+	            </ui:fragment>
+            </h:form>
+            
+        </f:facet>
+        
 		</p:menubar>
 	</h:form>
 </nav>

@@ -2,9 +2,6 @@ package com.jensen.steamlite.model;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
-import com.jensen.steamlite.model.database.DatabaseConnectionUtil;
 import com.jensen.steamlite.model.entity.User;
 
 public class UserDao implements GenericCRUDInterface<User> {

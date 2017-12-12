@@ -1,16 +1,7 @@
 package com.jensen.steamlite.model.database;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import com.jensen.steamlite.model.entity.AchievStatus;
-import com.jensen.steamlite.model.entity.Achievment;
-import com.jensen.steamlite.model.entity.Category;
-import com.jensen.steamlite.model.entity.Game;
-import com.jensen.steamlite.model.entity.Library;
-import com.jensen.steamlite.model.entity.Rating;
-import com.jensen.steamlite.model.entity.User;
 
 
 

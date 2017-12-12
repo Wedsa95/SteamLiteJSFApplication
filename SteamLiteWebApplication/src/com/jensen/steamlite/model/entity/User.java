@@ -2,16 +2,26 @@ package com.jensen.steamlite.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+@NamedNativeQueries({
+	@NamedNativeQuery(
+	name = "GET_USER_BY_NAME",
+	query = "SELECT * FROM users WHERE user_name = :name",
+	resultClass = User.class		
+	)
+})
+
 @Entity
 @Table(name="users")
 @ManagedBean(name="user")
