@@ -6,9 +6,21 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/template/slwt_menu_template.xhtml">
+<h:head>
+	<f:metadata>
+		<f:viewAction action="#{libraryHandler.initGamesList}"/>
+	</f:metadata>
+</h:head>
+<ui:composition template="/WEB-INF/template/slwt_library_template.xhtml">
 	<ui:define name="content">
-	   Library CONTENT
+	  	<h:form>
+			<p:selectOneListbox value="123" header="games" showHeaders="true" >
+				<f:selectItem itemLabel="123" itemValue="123"/>
+				<f:selectItem itemLabel="123" itemValue="123"/>
+				<f:selectItem itemLabel="123" itemValue="123"/>
+				<f:selectItem itemLabel="123" itemValue="123"/>
+			</p:selectOneListbox>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

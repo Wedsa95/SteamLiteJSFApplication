@@ -2,27 +2,29 @@
 
 package com.jensen.steamlite.model.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.hibernate.Session;
 
 import com.jensen.steamlite.model.database.DatabaseConnectionUtil;
 import com.jensen.steamlite.model.entity.Game;
 import com.jensen.steamlite.model.entity.Library;
+import com.jensen.steamlite.model.entity.User;
 
-@ManagedBean
+@Named(value="libraryHandler")
 @ViewScoped
 public class LibraryHandler {
 
-	private List<Game> games;
+	private List<Game> games = new ArrayList<>();
 	
-	@ManagedProperty(value="#{userHandler.residingUser}")
-	private ResidingUser residingUser; 
+	@Inject
+	private UserHandler residingUserHandler; 
 
 	public List<Game> getGames() {
 		return games;
@@ -30,18 +32,82 @@ public class LibraryHandler {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
+	@PostConstruct
+	public void initGamesList() {
+		System.out.println("IN INIT GAME LIST");
+		if(checkGameList()) {
+			retrieveGamesList();
+		}else {
+			createLibraryForUser();
+			retrieveGamesList();
+		}
+	}
 	
-	public List<Game> retrieveGamesList(){
-		FacesContext.getCurrentInstance();
+	public boolean checkGameList() {
+		System.out.println("IN CHECK GAME LIST");
+		User tempUser = null;
 		try {
 			Session session = DatabaseConnectionUtil.getSessionFactory().openSession();
 			
-			session.get(Library.class, residingUser.getUser().getUserId());
-		} catch (Exception e) {
+			tempUser = session.get(User.class, residingUserHandler.getResidingUser().getUser().getUserId());
+			tempUser.getLibrary();
+			tempUser.getLibrary().getGames();
+			tempUser.getLibrary().getGames().forEach(e -> e.getCategories());
+			tempUser.getLibrary().getGames().forEach(e -> e.getAchivments());
+			tempUser.getLibrary().getGames().forEach(e -> e.getRating());
 			
+			session.close();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		return games;
+		if(tempUser.getLibrary().equals(null)) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public void createLibraryForUser() {
+		System.out.println("IN CREATE LIBRARY For USER");
+		User createLibraryUser = null;
+		Library createLibrary = null;
+		try {
+			Session createLibrarySession = DatabaseConnectionUtil.getSessionFactory().openSession();
+			
+				createLibraryUser = createLibrarySession.get(User.class
+						,residingUserHandler.getResidingUser().getUser().getUserId());
+				
+				createLibrary = new Library();
+				createLibrary.setLibraryOwner(createLibraryUser);
+				
+				createLibraryUser.setLibrary(createLibrary);
+			
+				createLibrarySession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void retrieveGamesList(){
+		System.out.println("IN RETREVE GAMELIST");
+		User tempUser = null;
+		try {
+			Session session = DatabaseConnectionUtil.getSessionFactory().openSession();
+			
+			tempUser = session.get(User.class, residingUserHandler.getResidingUser().getUser().getUserId());
+			tempUser.getLibrary();
+			tempUser.getLibrary().getGames();
+			tempUser.getLibrary().getGames().forEach(e -> e.getCategories());
+			tempUser.getLibrary().getGames().forEach(e -> e.getAchivments());
+			tempUser.getLibrary().getGames().forEach(e -> e.getRating());
+			
+			session.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		games = tempUser.getLibrary().getGames();
 	}
 	
 }

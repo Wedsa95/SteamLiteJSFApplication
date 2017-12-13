@@ -24,11 +24,21 @@
 			<p:submenu label="Profile"  >
 				<p:menuitem value="Change details" ajax="false" url="/faces/user/profile.xhtml" />
 			</p:submenu>
-			
+		
 		<f:facet name="options">
             <p:inputText style="margin-right:10px" placeholder="Search"/>
-            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+	        <h:form>
+	            <ui:fragment rendered="#{!userHandler.signedIn}" >
+	            	<p:button value="Log in" outcome="/faces/login.xhtml" />
+	            </ui:fragment>
+          
+	            <ui:fragment rendered="#{userHandler.signedIn}" >
+	            	<p:commandButton value="Log out" ajax="false" action="#{signOutHandler.sendTo}" />
+	            </ui:fragment>
+            </h:form>
+            
         </f:facet>
+        
 		</p:menubar>
 	</h:form>
 </nav>
