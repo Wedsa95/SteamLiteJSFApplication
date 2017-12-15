@@ -1,5 +1,7 @@
 # SteamLiteJSFApplication
 A gui application that uses Hibernate to create a "Steam like" experience.
+# Setup process
+
 
 # ERD of the database
 ![Steamlite ERD](https://github.com/Wedsa95/HibernateSteamLite/blob/master/SteamLite/img/SteamSkinERD.jpg)
