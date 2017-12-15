@@ -1,5 +1,9 @@
 # SteamLiteJSFApplication
 A gui application that uses Hibernate to create a "Steam like" experience.
+# Technologies used and to what
+<bold>Server</bold>
+Apache tomcat Server
+
 # Setup process
 
 
