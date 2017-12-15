@@ -1,11 +1,30 @@
 # SteamLiteJSFApplication
-A gui application that uses Hibernate to create a "Steam like" experience.
+
 # Technologies used and to what
-<bold>Server</bold>
-Apache tomcat Server
+## Server
+* TomEE - Apache tomcat v8.5
+
+### Web Tools
+* JSF
+* Primefaces
+* CDI
+
+### DB (Database) 
+* SQL Database (XXAMP for easy setup)
+* Hibernate 
+
+### Other Libraries And Things
+* JBCrypt (A "slow hach" generator fitted for java)
+* Maven used for dependencies
 
 # Setup process
-
+## prerequisites 
+* That you have a understanding of IDE:s, Maven, Java/EE, Relation Databases and SQL Querys. 
+1. Clone or download this repository.
+2. Follow this guide to download and install [xampp](https://www.youtube.com/watch?v=xdvVKywGlc0).
+3. Open Xampp:s schell and copy paste the SQL from the MySQL Code further down.
+4. Follow this guide to download and install [TomEE](http://tomee.apache.org/installing-tomee.html).
+5. Open the project in your IDE and use maven to clean, update and install.
 
 # ERD of the database
 ![Steamlite ERD](https://github.com/Wedsa95/HibernateSteamLite/blob/master/SteamLite/img/SteamSkinERD.jpg)
