@@ -9,7 +9,25 @@
 <ui:composition template="/WEB-INF/template/slwt_menu_template.xhtml">
 	<ui:define name="list_content"></ui:define>
 	<ui:define name="content">
-	    Profile CONTENT
+	    <h:form>
+	    	<p:growl id="messages"/>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="username" value="User Name: "/>
+		    	<p:inputText id="username" value="#{changeInfoHandler.userName}" 
+		    		placeholder="#{userHandler.residingUser.user.userName}"/>
+		    		
+		    	<h:outputLabel for="password" value="Password: "/>
+		    	<p:inputText id="password" value="#{changeInfoHandler.password}"
+		    		placeholder="New Password"/>
+		    		
+		    	<h:outputLabel for="email" value="Email: "/>
+		    	<p:inputText for="email" value="#{changeInfoHandler.email}"
+		    		placeholder="#{userHandler.residingUser.user.userEmail}"/>
+		    	
+		    	<p:commandButton value="Update Info" action="#{changeInfoHandler.updateInfo}" />
+		    	<p:commandButton value="Delete" action="#{userHandler.deleteUser}" />
+	    	</h:panelGrid>
+	    </h:form>
 	</ui:define>
 </ui:composition>
 </html>

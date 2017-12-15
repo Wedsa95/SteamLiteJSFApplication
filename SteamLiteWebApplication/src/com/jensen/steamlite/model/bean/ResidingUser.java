@@ -6,6 +6,7 @@ public class ResidingUser {
 	
 	private User user;
 
+
 	public ResidingUser(User user) {
 		super();
 		this.user = user;

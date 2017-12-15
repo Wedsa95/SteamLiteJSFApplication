@@ -21,7 +21,7 @@ import com.jensen.steamlite.model.entity.User;
 @ViewScoped
 public class LibraryHandler {
 
-	private List<Game> games = new ArrayList<>();
+	private List<Game> games;
 	
 	@Inject
 	private UserHandler residingUserHandler; 
@@ -32,6 +32,7 @@ public class LibraryHandler {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
+	
 	@PostConstruct
 	public void initGamesList() {
 		System.out.println("IN INIT GAME LIST");
@@ -91,6 +92,8 @@ public class LibraryHandler {
 	
 	public void retrieveGamesList(){
 		System.out.println("IN RETREVE GAMELIST");
+		
+		games = new ArrayList<>();
 		User tempUser = null;
 		try {
 			Session session = DatabaseConnectionUtil.getSessionFactory().openSession();
@@ -107,7 +110,9 @@ public class LibraryHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		games = tempUser.getLibrary().getGames();
+		for(Game game: tempUser.getLibrary().getGames()) {
+			games.add(game);
+		}
 	}
 	
 }

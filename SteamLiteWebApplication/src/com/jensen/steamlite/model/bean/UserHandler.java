@@ -20,7 +20,7 @@ public class UserHandler implements Serializable{
 	
 	private static final long serialVersionUID = -6114578562850663408L;
 
-	private ResidingUser residingUser;
+	private ResidingUser residingUser = null;
 	
 	
 	public ResidingUser getResidingUser() {
@@ -141,6 +141,53 @@ public class UserHandler implements Serializable{
 			return "/faces/signup.xhtml";
 		}
 		
+		
+	}
+
+	public String updateInfo(String userName, String password, String email) {
+		CrypteUtil cryptUtil = new CrypteUtil();
+		String newPassword = cryptUtil.newSaltAndHach(password);
+		User user = residingUser.getUser();
+		User updateUser = null;
+		try {
+			Session session = DatabaseConnectionUtil
+					.getSessionFactory().openSession();
+			
+			updateUser = session.get(User.class, user.getUserId());
+			updateUser.setUserName(userName);
+			updateUser.setUserPassword(newPassword);
+			updateUser.setUserEmail(email);
+			
+			session.getTransaction().commit();
+			session.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		destroySession();
+		return "/faces/login.xhtml";
+	}
+	
+	public String deleteUser() {
+		User deleteUser = null;
+		try {
+			Session session = DatabaseConnectionUtil
+					.getSessionFactory().openSession();
+			
+			deleteUser = session.get(User.class
+					,residingUser.getUser().getUserId());
+			
+			session.delete(deleteUser);
+			
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+			
+		destroySession();
+		return "/faces/login.xhtml";
 		
 	}
 
