@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.jensen.steamlite.model.database.DatabaseConnectionUtil;
 import com.jensen.steamlite.model.entity.Library;
@@ -20,6 +21,12 @@ public class UserHandler implements Serializable{
 	
 	private static final long serialVersionUID = -6114578562850663408L;
 
+	/**
+	 * The Object of the user
+	 * in the http session.
+	 * 
+	 * @see ResidingUser User
+	 */
 	private ResidingUser residingUser = null;
 	
 	
@@ -31,6 +38,17 @@ public class UserHandler implements Serializable{
 		this.residingUser = residingUser;
 	}
 
+	/**
+	 * Uses userName to find the user
+	 * on the database. Then if the given password 
+	 * matches the hashed on the retrieved user 
+	 * a session adds the user to the session.
+	 * 
+	 * @see CrypteUtil
+	 * @param userName
+	 * @param password
+	 * @return String - Redirects to login or store page
+	 */
 	@SuppressWarnings("deprecation")
 	public String signIn(String userName, String password) {
 		
@@ -74,10 +92,20 @@ public class UserHandler implements Serializable{
 		}
 	}
 	
+	/**
+	 * Checks if the ResidingUser is set.
+	 * 
+	 * @return boolean - true if ResidingUser i set.
+	 */
 	public boolean isSignedIn() {
 		return residingUser != null;
 	}
-	
+	/**
+	 * Retrieved the Faces session and invalidates it.
+	 * The redirects the user. 
+	 * 
+	 * @return String - A redirect to the appropriate index page
+	 */
 	public String signOut() {
 		System.out.println("In Sign out");
 		FacesContext.getCurrentInstance()
@@ -85,12 +113,26 @@ public class UserHandler implements Serializable{
 		
 		return "/faces/store.xhtml?faces-redirect=true";
 	}
+	/**
+	 * Retrieved the Faces session and invalidates it.
+	 */
 	public void destroySession() {
 		System.out.println("In Destroy");
 		FacesContext.getCurrentInstance()
 		.getExternalContext().invalidateSession();
 	}
-
+	/**
+	 * Uses the userName to find out if a user 
+	 * on the database already exists. If not
+	 * a new user is created using the in 
+	 * parameters send it to the database. 
+	 * 
+	 * @see CrypteUtil DatabaseConnectionUtil
+	 * @param userName
+	 * @param password
+	 * @param email
+	 * @return String - Redirect to the login page or signup page
+	 */
 	@SuppressWarnings("deprecation")
 	public String signUp(String userName, String password, String email) {
 		
@@ -144,6 +186,16 @@ public class UserHandler implements Serializable{
 		
 	}
 
+	/**
+	 * Updates the ResidingUser in the http session 
+	 * information on the database.
+	 * Using the in parameters.
+	 * 
+	 * @param userName
+	 * @param password
+	 * @param email
+	 * @return String - Redirects to login page
+	 */
 	public String updateInfo(String userName, String password, String email) {
 		CrypteUtil cryptUtil = new CrypteUtil();
 		String newPassword = cryptUtil.newSaltAndHach(password);
@@ -169,6 +221,12 @@ public class UserHandler implements Serializable{
 		return "/faces/login.xhtml";
 	}
 	
+	/**
+	 * Deletes the ResidingUser on the http session
+	 * from the database.
+	 * 
+	 * @return String - Redirects to login page
+	 */
 	public String deleteUser() {
 		User deleteUser = null;
 		try {

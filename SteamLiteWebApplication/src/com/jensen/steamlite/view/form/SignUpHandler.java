@@ -5,7 +5,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jensen.steamlite.model.bean.UserHandler;
-
+/**
+ * Requestscoped bean that is user to
+ * send information and to perform operation
+ * in UserHandler.
+ * 
+ * @author Jonas
+ * @see UserHandler profile.xhtml
+ */
 @RequestScoped
 @Named
 public class SignUpHandler {
@@ -14,6 +21,11 @@ public class SignUpHandler {
 	private String password;
 	private String email;
 	
+	/**
+	 * Inject the current http session object
+	 * 
+	 * @see UserHandler Inject
+	 */
 	@Inject
 	private UserHandler userHandler;
 	
@@ -35,6 +47,12 @@ public class SignUpHandler {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/**
+	 * Request to perform the operation in UserHandler.
+	 * @see UserHandler
+	 * @return String - from the UserHandler method
+	 */
 	public String sendTo() {
 		return userHandler.signUp(userName, password, email);
 	}

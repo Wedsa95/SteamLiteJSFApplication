@@ -8,10 +8,14 @@ import org.hibernate.cfg.Configuration;
 public class DatabaseConnectionUtil {
 
 
-	
+	/**
+	 * The configured static data link to
+	 * the database.
+	 * @see SessionFactory
+	 */
 	private static SessionFactory sessionFactory;
 	
-	 static {
+	static {
 		try {
 			sessionFactory = new Configuration()
 				.configure("/com/jensen/steamlite/model/database/hibernate.cfg.xml")

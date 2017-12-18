@@ -14,13 +14,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jensen.steamlite.model.bean.UserHandler;
+import com.jensen.steamlite.model.entity.User;
 
 
 @WebFilter("/faces/user/*")
 public class CheckUserSession implements Filter{
 
+	/**
+	 * Inject the current http session object
+	 * 
+	 * @see UserHandler Inject
+	 */
 	@Inject
 	private UserHandler userHandler;
+	
+	/**
+	 * Returns the unauthorized user
+	 * to the login.xhtml page.
+	 * Returns the authhorized user 
+	 * to the requested page. 
+	 * 
+	 * @see Filter
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response
 			,FilterChain chain) throws IOException, ServletException {

@@ -22,6 +22,15 @@ import javax.persistence.Table;
 	)
 })
 
+/**
+ * A hibernate entity/JSF bean 
+ * that represents a tuple in 
+ * the database.
+ * 
+ * @author Jonas
+ * @see Hibernate ResidingUser
+ *
+ */
 @Entity
 @Table(name="users")
 @ManagedBean(name="user")
